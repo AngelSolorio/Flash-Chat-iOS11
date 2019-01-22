@@ -32,6 +32,14 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         emailTextfield.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
         passwordTextfield.addTarget(self, action: #selector(textFieldDidChange(textField:)), for: .editingChanged)
 
+        // Customize textFields borders
+        emailTextfield.layer.cornerRadius = 8.0
+        emailTextfield.layer.borderWidth = CGFloat(1.0)
+        emailTextfield.layer.borderColor = UIColor.white.cgColor
+        passwordTextfield.layer.cornerRadius = 8.0
+        passwordTextfield.layer.borderWidth = CGFloat(1.0)
+        passwordTextfield.layer.borderColor = UIColor.white.cgColor
+        
         emailTextfield.becomeFirstResponder()
     }
 
@@ -85,8 +93,9 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // Max length: 10 characters for password && 50 characters for email
-        if (textField.isEqual(passwordTextfield) && textField.text?.count ?? 0 == 10) ||
-            (textField.isEqual(emailTextfield) && textField.text?.count ?? 0 == 50) {
+        if !string.isEmpty &&
+            ((textField.isEqual(passwordTextfield) && textField.text?.count ?? 0 == 10) ||
+            (textField.isEqual(emailTextfield) && textField.text?.count ?? 0 == 50)) {
             return false
         }
         return true
@@ -138,13 +147,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     // Change the border color to red
     private func setTextfieldInvalid(field: UITextField) {
         field.layer.borderColor = UIColor.red.cgColor
-        field.layer.borderWidth = CGFloat(1.0)
     }
 
     // Change the border color to white
     private func setTextfieldValid(field: UITextField) {
         field.layer.borderColor = UIColor.white.cgColor
-        field.layer.borderWidth = CGFloat(1.0)
     }
 
     // Displays an Alert Controller
